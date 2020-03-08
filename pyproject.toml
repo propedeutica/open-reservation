@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "open-reservation"
+version = "0.2.0"
+description = "An Open Source reservation project for families"
+authors = ["Sergio Ocón <sergio.ocon@gmail.com>"]
+license = "GPL-3.0+"
+
+[tool.poetry.dependencies]
+python = "^3.7"
+django = ">3.0"
+django_mkdocs = "^0.1.2"
+coverage = "^5.0.3"
+django-allauth = "^0.41.0"
+django-pytest = "^0.2.0"
+pytest-xdist = "^1.31.0"
+pytest-django = "^3.8.0"
+
+[tool.poetry.dev-dependencies]
+flake8 = "^3.7.9"
+flake8-markdown = "^0.2.0"
+pytest = "^5.3.5"
+mkdocs = "^1.1"
+pylint = "^2.4.4"
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
