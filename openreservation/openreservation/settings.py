@@ -15,7 +15,7 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-PRODUCTION = True if os.environ.get('PRODUCTION') else False
+PRODUCTION = bool(os.environ.get('PRODUCTION'))
 
 
 # Quick-start development settings - unsuitable for production
@@ -31,7 +31,9 @@ else:
     SECRET_KEY = os.environ.get(
         'SECRET_KEY', 'sf_(-ik9h4*8p01yzi#%dx4oftfc-r2afk$)y&hj84d!pdcgzq')
 
-# IN OpenShift, services are only available within a pod, and needs to be communicated outside, so it is safe to do:        
+# In OpenShift, services are only available within a pod,
+# and needs to be communicated outside, so it is safe to do:
+
 ALLOWED_HOSTS = ['*']
 
 
@@ -45,17 +47,17 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
-    
+
     # Authentication
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    
+
     # Internal Apps
     'info',
 ]
 
-SITE_ID = 1
+SITE_ID = 11
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -93,8 +95,12 @@ WSGI_APPLICATION = 'openreservation.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': os.environ.get('POSTGRESQL_DATABASE', 'openreservation'),
+        'USER': os.environ.get('POSTGRESQL_USER', 'openreservation'),
+        'PASSWORD': os.environ.get('POSTGRESQL_PASSWORD', 'openreservation'),
+        'HOST': os.environ.get('POSTGRESQL_HOST', '127.0.0.1'),
+        'PORT': os.environ.get('POSTGRESQL_PORT', '5432'),
     }
 }
 
@@ -122,9 +128,8 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 
     # `allauth` specific authentication methods, such as login by e-mail
-    'allauth.account.auth_backends.AuthenticationBackend', 
+    'allauth.account.auth_backends.AuthenticationBackend',
 )
-
 
 
 # Internationalization
@@ -146,6 +151,14 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+if PRODUCTION:
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    ACCOUNT_CONFIRM_EMAIL_ON_GET = True
+    ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+else:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 
 LOGGING = {

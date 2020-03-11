@@ -1,5 +1,6 @@
 def test_passing():
-    assert (1,2,3) == (1,2,3)
+    assert (1, 2, 3) == (1, 2, 3)
+
 
 def test_home(client):
     response = client.get('')
@@ -15,7 +16,6 @@ def test_help(client):
     response = client.get('/info/help/')
     assert response.status_code == 200
     assert 'info/help.html' in (t.name for t in response.templates)
-
 
 
 def test_about(client):
