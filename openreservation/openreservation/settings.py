@@ -74,7 +74,7 @@ ROOT_URLCONF = 'openreservation.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['templates',],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -96,11 +96,11 @@ WSGI_APPLICATION = 'openreservation.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.environ.get('POSTGRESQL_DATABASE', 'openreservation'),
-        'USER': os.environ.get('POSTGRESQL_USER', 'openreservation'),
-        'PASSWORD': os.environ.get('POSTGRESQL_PASSWORD', 'openreservation'),
-        'HOST': os.environ.get('POSTGRESQL_HOST', '127.0.0.1'),
-        'PORT': os.environ.get('POSTGRESQL_PORT', '5432'),
+        'NAME': os.environ.get('DATABASE_NAME', 'openreservation'),
+        'USER': os.environ.get('DATABASE_USER', 'openreservation'),
+        'PASSWORD': os.environ.get('DATABASE_PASSWORD', 'openreservation'),
+        'HOST': os.environ.get('DATABASE_HOST', '127.0.0.1'),
+        'PORT': os.environ.get('DATABASE_PORT', '5432'),
     }
 }
 
@@ -151,7 +151,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_DIRS = [
+    ('assets', "static_src/"),
+]
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 if PRODUCTION:
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
