@@ -25,11 +25,11 @@ PRODUCTION = bool(os.environ.get('PRODUCTION'))
 # SECURITY WARNING: don't run with debug turned on in production!
 if PRODUCTION:
     DEBUG = os.environ.get('DEBUG', False)
-    SECRET_KEY = os.environ.get('SECRET_KEY')
+    SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 else:
     DEBUG = os.environ.get('DEBUG', True)
     SECRET_KEY = os.environ.get(
-        'SECRET_KEY', 'sf_(-ik9h4*8p01yzi#%dx4oftfc-r2afk$)y&hj84d!pdcgzq')
+        'DJANGO_SECRET_KEY', 'sf_(-ik9h4*8p01yzi#%dx4oftfc-r2afk$)y&hj84d!pdcgzq')
 
 # In OpenShift, services are only available within a pod,
 # and needs to be communicated outside, so it is safe to do:
@@ -179,3 +179,33 @@ LOGGING = {
         },
     },
 }
+
+ACCOUNT_EMAIL_REQUIRED = True
+CCOUNT_USER_MODEL_EMAIL_FIELD = 'email'
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_SESSION_REMEMBER = False
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 5
+ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT = 3
+
+LOGIN_REDIRECT_URL = 'home'
+ACCOUNT_LOGOUT_REDIRECT_URL = 'home'
+
+if PRODUCTION:
+    EMAIL_HOST = os.environ.get('EMAIL_HOST')
+    EMAIL_HOST_USER = os.environ.get('EMAIL_USER')
+    EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASSWORD')
+    EMAIL_PORT = os.environ.get('EMAIL_PORT', 587)
+    EMAIL_USE_TLS = True
+    DEFAULT_FROM_EMAIL = os.environ.get('EMAIL_DEFAULT_FROM', EMAIL_HOST_USER)
+else:
+    EMAIL_HOST = os.environ.get('EMAIL_HOST', 'localhost')
+    EMAIL_HOST_USER = os.environ.get('EMAIL_USER', 'email_user@test.com')
+    EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASSWORD', 'password')
+    EMAIL_PORT = os.environ.get('EMAIL_PORT', 587)
+    EMAIL_USE_TLS = True
+    DEFAULT_FROM_EMAIL = os.environ.get('EMAIL_DEFAULT_FROM', EMAIL_HOST_USER)
+
+# ACCOUNT_FORMS = {'login': 'accounts.forms.MyCustomLoginForm',
+#                 'signup': 'accounts.forms.MyCustomSignupForm'}
