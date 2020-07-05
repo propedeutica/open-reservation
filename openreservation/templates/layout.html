@@ -1,63 +1,28 @@
 {% load static %}
 
+{% load static %}
+
 <!DOCTYPE html>
-<html lang="es" class="pf-m-redhat-font">
+<html lang="es">
+<link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
 <head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="shortcut icon" href="{% static 'assets/images/favicon.ico' %}">
-    <!-- Include latest PatternFly CSS via CDN -->
-    <link rel="stylesheet" href="{% static 'assets/node_modules/@patternfly/patternfly/patternfly.css' %}">
-    
-    <title>{% block title %} Catequesis Las Tablas {% endblock %}</title>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/patternfly/3.53.0/css/patternfly.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/patternfly/3.53.0/css/patternfly-additions.min.css">
+
+  <title>{% block title %} Las Tablas {% endblock %}</title>
 </head>
+<body>
 
-
-<body> 
-    <div class="pf-c-page">
-    <header role="banner" class="pf-c-page__header">
-        <div class="pf-c-page__header-brand">
-          <a class="pf-c-page__header-brand-link"><img src="{% static 'assets/images/brand.jpg' %}" class="pf-c-page__header-brand-link" alt="Catequesis Las Tablas" width="180px" /></a>
-        </div>
-        <div class="pf-c-page__header-tools">
-            header-tools
-            <i class="fa fa-user"></i>
-        </div>
-    </header>
-    <nav class="pf-c-nav pf-m-dark" aria-label="Global">
-      <section class="pf-c-nav__section" aria-labelledby="grouped-title-info">
-        <h2 class="pf-c-nav__section-title" id="grouped-title-info">Información</h2>
-        <ul class="pf-c-nav__list">
-          <li class="pf-c-nav__item">
-            <a href="{% url 'info:home' %}" class="pf-c-nav__link pf-m-current">Principal</a>
-          </li>
-          <li class="pf-c-nav__item">
-            <a href="{% url 'info:help' %}" class="pf-c-nav__link">Ayuda</a>
-          </li>
-        </ul>
-      </section>
-      <li class="pf-c-divider" role="separator"></li>
-      <section class="pf-c-nav__section" aria-labelledby="grouped-title-info">
-        <h2 class="pf-c-nav__section-title" id="grouped-title-info">Información</h2>
-        <ul class="pf-c-nav__list">
-          <li class="pf-c-nav__item">
-            <a href="{% url 'account_login' %}" class="pf-c-nav__link pf-m-current">Autenticarse</a>
-          </li>
-          <li class="pf-c-nav__item">
-            <a href="{% url 'info:help' %}" class="pf-c-nav__link">Ayuda</a>
-          </li>
-        </ul>
-      </section>
-    </nav>
-      <main role="main" class="pf-c-page__main" tabindex="-1">
-        <section class="pf-c-page__main-section pf-m-dark-100"></section>
-        <section class="pf-c-page__main-section pf-m-dark-200"></section>
-        <section class="pf-c-page__main-section pf-m-light"></section>
-        <section class="pf-c-page__main-section"></section>
-      </main>
-      {% block content %}
-        {% endblock content %}
-      </div>
-  </body>
+ 
+  {% include 'partials/base_masthead.html' %}
+  <div class="container">
+    {% include 'partials/base_alerts.html' %}
+    {% block content  %} Content {% endblock %}
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/patternfly/3.53.0/js/patternfly.min.js"></script>
+</body>
 </html>
 

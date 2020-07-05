@@ -1,0 +1,91 @@
+{% load static %}
+<nav class="navbar navbar-default navbar-pf" role="navigation">
+    <div class="navbar-header">
+      <button class="navbar-toggle" data-target=".navbar-collapse-1" data-toggle="collapse" type="button">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">
+        <img src="{% static 'assets/images/brand.jpg' %}" class="logo" alt="Catequesis Las Tablas" height="48"/>
+      </a>
+    </div>
+
+
+    <div class="collapse navbar-collapse navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-utility">
+        <li>
+          <a class="fa pficon-help" href="{%url 'info:help'%}"> Ayuda </a>
+        </li>
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+            <span class="pficon pficon-user"></span>
+            {% if user.is_authenticated %}
+              {{ user }}
+            {% else %}
+              Usuario no autenticado
+            {% endif %}
+            <b class="caret"></b>
+          </a>
+          <ul class="dropdown-menu">
+              {% if user.is_authenticated %}
+                <li><a class="fa fa-user" href="{% url 'user:profile'%}?next={{request.path}}"> Perfil de usuario</a></li>
+                <li class="divider"></li>
+                <li><a class="fa fa-sign-out" href="{% url 'account_logout'%}?next={{request.path}}"> Salir</a></li>
+              {% else %}
+                <li><a class="fa fa-sign-in" href="{% url 'account_login'%}?next={{request.path}}"> Login</a></li>
+                <li><a class='fa fa-user-plus' href="{% url 'account_login'%}?next={{request.path}}"> Darse de alta</a></li>
+              {% endif %}
+ 
+              <li class="divider"></li>
+              <li>
+                <a href="{% url 'info:about' %}" class="fa fa-question-circle-o"> Acerca de</a>
+              </li>
+          </ul>
+        </li>
+      </ul>
+
+      <!-- Main header navigation elements --> 
+      <ul class="nav navbar-nav navbar-primary">
+        <li>
+            <#a href="{% url 'schedules_index' %}">Horarios</a>
+        </li>
+        {% if user.is_authenticated %}
+        <li>
+          <a href="{% url 'parents:profile' %}"> Perfil</a>
+        </li>
+
+        <li>
+          <#a href="{% url 'offsprings:index' %}"> Catecúmenos</a>
+        </li>
+
+        {% else %}
+        <li><a href="{% url 'account_login'%}?next={{request.path}}">Login</a></li>
+        <li><a href="{% url 'account_signup' %}">Darse de alta</a></li>
+
+        {% endif %}
+
+        
+        <!-- Help drowpdown -->
+        <li class="dropdown">
+          <a href="#0" class="dropdown-toggle" data-toggle="dropdown">
+              Ayuda
+            <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+              <li>
+                <a href="{% url 'info:home' %}">Principal</a>
+              </li>
+                <li>
+                <a href="{% url 'info:help' %}">Ayuda</a>
+              </li>
+              <li>
+                <a href="{% url 'info:about' %}">Acerca de</a>
+              </li>
+            </ul>
+          </a>
+        </li>
+      </ul>
+    </div>
+</nav>

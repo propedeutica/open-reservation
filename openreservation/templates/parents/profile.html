@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% block title %}Perfil{% endblock %}
+{% block content %}
+
+<div class="container-fluid">
+    <h1> {{ user }} </h1>
+
+    <form class="form-horizontal">
+      <div class="form-group">
+        <div class="col-sm-2 control-label">Nombre</div>
+          <div class="col-sm-10">
+            <p class= "form-control-static">{{user.first_name}}</p>
+          </div>
+        </div>
+        
+      <div class="form-group">
+        <div class="col-sm-2 control-label">
+          Apellidos
+        </div>
+          <div class="col-sm-10">
+            <p class= "form-control-static">{{user.last_name}}</p>
+          </div>
+      </div>
+
+
+      <div class="form-group">
+          <div class="col-sm-2 control-label">Teléfono:</div>
+          <div class="col-sm-10">
+              <p class= "form-control-static">{{user.phone}}</p>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="col-sm-2 control-label">Email:</div>
+          <div class="col-sm-10">
+              <p class= "form-control-static">{{user.email}}</p>
+          </div>
+        </div>
+  
+        <div class="form-group">
+            <div class="col-sm-2 control-label">Miembro desde:</div>
+            <div class="col-sm-10">
+              <p class= "form-control-static">{{user.date_joined}}</p>
+            </div>
+          </div>
+
+      <div class="form-group">
+        <div class="col-sm-2 control-label">Último Acceso:</div>
+        <div class="col-sm-10">
+          <p class= "form-control-static">{{user.last_login}}</p>
+        </div>
+      </div>
+
+      <div class="form-group">
+          <div class="col-sm-2 control-label">Apellidos de los catecúmenos:</div>
+          <div class="col-sm-8">
+            <p class= "form-control form-control-static" disabled=true>{{user.offsprings_surname}}</p>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="col-sm-2 control-label">Nombre del padre:</div>
+          <div class="col-sm-8">
+            <p class= "form-control form-control-static" disabled=true>{{user.father_name}}</p>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="col-sm-2 control-label">Nombre de la madre:</div>
+          <div class="col-sm-8">
+            <p class= "form-control form-control-static" disabled=true>{{user.mother_name}}</p>
+          </div>
+        </div>
+
+
+
+    </form>
+    
+    <form action="{% url 'parents:delete' user.id  %}" method='get'>
+      <button type='submit' class="btn btn-danger"> Borrar Perfil</button>
+      </form>
+
+    
+</div>
+
+{% endblock content %}

@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+from socket import gethostname
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -53,8 +54,15 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
 
+    # Data applications
+
+    'phonenumber_field',
+
     # Internal Apps
     'info',
+    'schedules',
+    'offsprings',
+    'parents',
 ]
 
 SITE_ID = 11
@@ -154,7 +162,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = [
     ('assets', "static_src/"),
 ]
-# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 if PRODUCTION:
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -180,19 +188,26 @@ LOGGING = {
     },
 }
 
+AUTH_USER_MODEL = "parents.User"
+
+# User 
 ACCOUNT_EMAIL_REQUIRED = True
-CCOUNT_USER_MODEL_EMAIL_FIELD = 'email'
-ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None # NO queremos username
 ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+
+ACCOUNT_USER_MODEL_EMAIL_FIELD = 'email'
 ACCOUNT_SESSION_REMEMBER = False
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 5
-ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT = 3
+ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT = 300
 
-LOGIN_REDIRECT_URL = 'home'
-ACCOUNT_LOGOUT_REDIRECT_URL = 'home'
+LOGIN_REDIRECT_URL = 'info:home'
+ACCOUNT_LOGOUT_REDIRECT_URL = 'info:home'
 
 if PRODUCTION:
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    EMAIL_CONFIRM_EMAIL_ON_GET = True
     EMAIL_HOST = os.environ.get('EMAIL_HOST')
     EMAIL_HOST_USER = os.environ.get('EMAIL_USER')
     EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASSWORD')
@@ -200,12 +215,33 @@ if PRODUCTION:
     EMAIL_USE_TLS = True
     DEFAULT_FROM_EMAIL = os.environ.get('EMAIL_DEFAULT_FROM', EMAIL_HOST_USER)
 else:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
     EMAIL_HOST = os.environ.get('EMAIL_HOST', 'localhost')
     EMAIL_HOST_USER = os.environ.get('EMAIL_USER', 'email_user@test.com')
     EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASSWORD', 'password')
     EMAIL_PORT = os.environ.get('EMAIL_PORT', 587)
-    EMAIL_USE_TLS = True
+    EMAIL_USE_TLS = False
     DEFAULT_FROM_EMAIL = os.environ.get('EMAIL_DEFAULT_FROM', EMAIL_HOST_USER)
 
-# ACCOUNT_FORMS = {'login': 'accounts.forms.MyCustomLoginForm',
-#                 'signup': 'accounts.forms.MyCustomSignupForm'}
+
+ACCOUNT_FORMS = {'login': 'parents.forms.MyCustomLoginForm',
+                 'signup': 'parents.forms.MyCustomSignupForm'}
+
+
+PHONENUMBER_DEFAULT_REGION = "ES"
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO'),
+        },
+    },
+}
