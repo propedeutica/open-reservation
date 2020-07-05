@@ -16,6 +16,8 @@ pytest-django = "^3.8.0"
 pytest-cov = "^2.8.1"
 coverage = {version = "^5.0.3", extras = ["toml"]}
 psycopg2 = "^2.8.4"
+django-phonenumber-field = {extras = ["phonenumberslite"], version = "^4.0.0"}
+whitenoise = "^5.1.0"
 
 [tool.poetry.dev-dependencies]
 flake8 = "^3.7.9"
