@@ -49,7 +49,7 @@
       <!-- Main header navigation elements --> 
       <ul class="nav navbar-nav navbar-primary">
         <li>
-            <#a href="{% url 'schedules_index' %}">Horarios</a>
+            <a href="{% url 'schedules:index' %}">Horarios</a>
         </li>
         {% if user.is_authenticated %}
         <li>

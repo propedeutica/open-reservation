@@ -20,9 +20,9 @@ urlpatterns = [
     path('info/', include('info.urls', namespace="info")),
     path('', include('info.urls', namespace="root")),
     re_path(r'^accounts/', include('allauth.urls')),
-    path('accounts/', include('parents.urls', namespace='user')),
-    path('schedules/', include('schedules.urls')),
-    path('offsprings/', include('offsprings.urls')),
+    path('accounts/', include('parents.urls', namespace='parents')),
+    path('schedules/', include('schedules.urls', namespace='schedules')),
+    path('offsprings/', include('offsprings.urls', namespace='offsprings')),
     path('admin/', admin.site.urls),
 
 ]
