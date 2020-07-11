@@ -1,0 +1,57 @@
+{% load static %}
+{% load i18n %}
+{% load account socialaccount %}
+
+
+
+<!DOCTYPE html>
+<html lang="es" class="login-pf">
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/patternfly/3.53.0/css/patternfly.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/patternfly/3.53.0/css/patternfly-additions.min.css">
+
+    <title> Las Tablas</title>
+  </head>
+  <body class="login-pf-page">
+      <div class="container">
+        <div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 col-lg-6 col-lg-offset-3">
+          {% include 'partials/base_alerts.html' %}
+          <header class="login-pf-header">
+            <h1>Autentíquese</h1>
+          </header>
+          <div class="row">
+              <div class="login-pf-page">
+                <form  method="POST" action="{% url 'account_login'%}">
+                  {% csrf_token %}
+                  {{ form }}
+
+
+                <div class="form-group login-pf-settings">
+                      <a href="{% url 'account_reset_password'%}"> ¿Olvidó su password?</a>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block btn-lg">Acceder</button>
+              </form>
+              <p class="login-pf-signup">¿No tiene cuenta?<a href="{% url 'account_signup' %}">Nueva cuenta</a></p>
+          </div><!-- row -->
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/patternfly/3.53.0/js/patternfly.min.js"></script>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+ 
+    

@@ -1,0 +1,12 @@
+
+{% load account %}{% user_display user as user_display %}{% load i18n %}{% autoescape off %}{% blocktrans with site_name=current_site.name site_domain=current_site.domain %}
+
+Muy buenas
+
+Está recibiendo este correo porque {{ user_display }} ha dado esta dirección como correo de su cuenta para la aplicación de catequesis de Las Tablas.
+Para confirmar que es correcto, copie y pegue en su navegador o haga click en {{ activate_url }}
+{% endblocktrans %}{% endautoescape %}
+{% blocktrans with site_name=current_site.name site_domain=current_site.domain %}
+
+Muchas gracias
+{{ site_domain }}{% endblocktrans %}

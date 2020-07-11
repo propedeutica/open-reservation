@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Catecúmenos{% endblock %}
+{% block content %}
+<div class="container">
+  <h1>Confirmación:</h1>
+  <form method="post">
+    {% csrf_token %}
+      <p>Seguro que quiere borrar <b>"{{ object }}"</b>?</p>
+      <input type="submit" value="Confirmar">
+  </form>
+
+</div>
+{% endblock %}

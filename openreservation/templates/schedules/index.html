@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% regroup schedules by printable_day_of_week as schedules_by_day %}
+
+<h1><b>Horarios</b></h1>
+
+{% if user.is_authenticated %}
+  <h2> Para asignar un horario a un catecúmeno visite <a href="{% url 'offsprings:index' %}">Catecúmenos</a></h2>
+{% endif %}
+
+<div class="col-xs-12">
+
+{% for day, day_schedules in schedules_by_day %}
+  <div class="panel panel-info">
+    <div class="panel-heading"> 
+      <div class="panel-title"> 
+        <h2><b>{{ day.1 }}</b></h2>
+      </div><!-- /panel-title -->
+    </div><!-- /panel-heading -->
+    <div class="panel-body">
+        <div class="container-fluid container-cards-pf">
+
+            <div class="row row-cards-pf">
+                {% for schedule in day_schedules %}
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                    <div class="card-pf card-pf-view">
+                       
+                        <h2 class="card-pf-title text-center">
+                            <span class="fa fa-calendar card-pf-icon-circle"></span>
+                            <b>{{schedule}}</b>
+                            
+                        </h2>
+                        <div class="card-pf-body">
+                            <div class="card-pf-item">
+                                <span class="fa fa-map-marker"></span>
+                                  {{schedule.room}}
+                              </div>
+                        </div>
+                  </div>
+                </div>
+
+            {% endfor %}
+          </div> 
+      </div><!-- /container-fluid-->
+    </div><!-- /panel-body-->
+  </div><!-- /panel -->
+
+
+{% endfor %}
+</div>  <!-- /col -->
+
+{% endblock %}
+

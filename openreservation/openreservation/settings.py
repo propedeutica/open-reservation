@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
-from socket import gethostname
+# from socket import gethostname
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -82,7 +82,7 @@ ROOT_URLCONF = 'openreservation.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates',],
+        'DIRS': ['templates', ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -190,9 +190,10 @@ LOGGING = {
 
 AUTH_USER_MODEL = "parents.User"
 
-# User 
+# User
 ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_USER_MODEL_USERNAME_FIELD = None # NO queremos username
+# We don't want a username
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 

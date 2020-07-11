@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Nuevo catecúmeno{% endblock %}
+{% block content %}
+<h1> Introduzca los datos:</h1>
+<h3><b>Padre o tutor:</b> {{ user }} </h3>
+<h3><b>Apellidos: </b> 
+{{user.offsprings_surname}}
+</h3>
+
+
+<form method="post">{% csrf_token %}
+    {{ form.as_p }}
+         
+    <input type="submit" value="Añadir" class="btn btn-primary">
+
+</form>
+
+
+
+{% endblock content %}

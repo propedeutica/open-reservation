@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block title %}Assignación de turno{% endblock %}
+
+{% block content %}
+<h1><b>Elija un turno de los disponibles para {{ offspring }}:</b></h1>
+<p>Su elección sustituirá a la anterior (si existe)</p>
+
+{% regroup schedules by printable_day_of_week as schedules_by_day %}
+
+<h1><b>Horarios</b></h1>
+
+
+<div class="col-xs-12">
+
+{% for day, day_schedules in schedules_by_day %}
+
+  <div class="panel panel-success">
+    <div class="panel-heading"> 
+      <div class="panel-title"> 
+        <h2><b>{{ day.1 }}</b></h2>
+      </div><!-- /panel-title -->
+    </div><!-- /panel-heading -->
+    <div class="panel-body">
+        <div class="container-fluid container-cards-pf">
+
+            <div class="row row-cards-pf">
+                {% for schedule in day_schedules %}
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                    <div class="card-pf card-pf-view">
+                       
+                        <h2 class="card-pf-title text-center">
+                            <span class="fa fa-calendar card-pf-icon-circle"></span>
+                            <form method="post" action="{% url 'offsprings:createassignment' offspring.id schedule.id %}">
+                              {% csrf_token %}
+                              {{ schedule }}
+                              <span class="badge">Sitios: {{ schedule.seats_available}}</span>
+                              {% if schedule.seats_available%}
+                              
+                                <input type="submit" value="Seleccionar" class="btn btn-small btn-warning"/>
+                              {% endif %}
+                          </form>
+                            
+                        </h2>
+                        <div class="card-pf-body">
+                            <div class="card-pf-item">
+                                <span class="fa fa-map-marker"></span>
+                                  {{schedule.room}}
+                              </div>
+                        </div>
+                  </div>
+                </div>
+
+            {% endfor %}
+          </div> 
+      </div><!-- /container-fluid-->
+    </div><!-- /panel-body-->
+  </div><!-- /panel -->
+
+
+{% endfor %}
+</div>  <!-- /col -->
+
+
+{% endblock %}

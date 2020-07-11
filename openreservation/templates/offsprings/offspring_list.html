@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %}Catecúmenos{% endblock %}
+{% block content %}
+  <div class="container-fluid">
+      <h1>Catecúmenos:</h1>
+      <div class="list-group list-view-pf list-view-pf-view">
+        {% for offspring in object_list %}
+          <div class="list-group-item">
+            <div class="list-view-pf-main-info">
+              <div class="list-view-pf-left">
+                <span class="fa fa-user list-view-pf-icon-sm"></span>
+              </div>
+              <div class="list-view-pf-body">
+                <div class="list-view-pf-description">
+                  <div class="list-group-item-heading">
+                    <h4><b>{{ offspring.first_name}}</b></h4>
+                    <p> {{ offspring.last_name}}</p>
+                  </div>
+                  <div class="list-view-pf-additional-info">
+                     <span class="label label-info">{{ offspring.assignment }}</span></div>
+                 
+                  <div class="list-group-item">
+                    {% if offspring.assignment %}
+                      
+                      
+                      {{ offspring.assignment.room }}
+                    {% else %}
+                    <a href="{% url 'offsprings:assign' pk=offspring.id %}">No tiene grupo asignado todavía</a>
+                    {% endif %}
+                  </div>
+                </div>
+                <div class="list-view-pf-additional-info">
+                  <div class="list-view-pf-additional-info-item">
+                    {{ offspring.get_grade_display}}
+                  </div>
+                </div>
+                <div class="list-view-pf-actions">
+                    <a class="btn btn-primary" href="{% url 'offsprings:update' pk=offspring.id  %}">Editar datos</a>
+                    <a class="btn btn-danger" href="{% url 'offsprings:delete' pk=offspring.id %}">Borrar</a>
+                    <a class="btn btn-warning" href="{% url 'offsprings:assign' pk=offspring.id %}">Asignar grupo</a>
+
+                    </div>
+              </div>
+            </div>
+          </div>
+        {% empty %}
+         <h1> No hay catecúmenos todavía</h1>
+        {% endfor %}
+      </div>
+      <div class="btn-group">
+          <a class="btn btn-primary" href="{% url 'offsprings:create' %}">Añadir catecúmeno</a>
+        </div>
+  </div>
+{% endblock %}
