@@ -30,7 +30,7 @@
           </a>
           <ul class="dropdown-menu">
               {% if user.is_authenticated %}
-                <li><a class="fa fa-user" href="{% url 'user:profile'%}?next={{request.path}}"> Perfil de usuario</a></li>
+                <li><a class="fa fa-user" href="{% url 'parents:profile' %}?next={{request.path}}"> Perfil de usuario</a></li>
                 <li class="divider"></li>
                 <li><a class="fa fa-sign-out" href="{% url 'account_logout'%}?next={{request.path}}"> Salir</a></li>
               {% else %}
@@ -57,7 +57,7 @@
         </li>
 
         <li>
-          <#a href="{% url 'offsprings:index' %}"> Catecúmenos</a>
+          <a href="{% url 'offsprings:index' %}"> Catecúmenos</a>
         </li>
 
         {% else %}
