@@ -1,11 +1,16 @@
-{% extends "base.html" %}
-{% block title %}Editar {{object.first_name }}{% endblock %}
+{% extends "layout.html" %}
+{% block title %}Editar datos de {{object.first_name }}{% endblock %}
 {% block content %}
-<h2> {{ object.first_name }} </h2>
-<h3> {{ object.last_name }} </h3>
-<h4> Curso: {{ object.get_grade_display }} </h4>
+<h2> <b>{{ object.first_name }} </b></h2>
+<h3> <b>{{ object.last_name }} </b></h3>
+<p></p>
+<h3> Curso: </h3>{{ object.get_grade_display }} 
 
-<h4>Padre o tutor: {{ object.parent }}</h4>
+<h3>Usuario: </h3>{{ object.parent }}
+
+<h3> Datos de la familia</h3>
+<h4>Padre:  </h4>{{ object.father_name }}
+<h4>Madre:</h4> {{ object.mother_name }} 
 
 <h1> Editar campos</h1>
 <form method="post">{% csrf_token %}

@@ -6,7 +6,7 @@ from offsprings.models import Offspring
 class CreateOffspringForm(ModelForm):
 
     class Meta:
-        BIRTH_YEAR_CHOICES = ['2012,','2013', '2012', '2014', '2015',]
+        BIRTH_YEAR_CHOICES = ['2012','2013', '2014', '2015', '2016',]
         model = Offspring
         fields = ['first_name', 'birth_date', 'grade',
                   'home_address', 'school', 'baptized', ]
