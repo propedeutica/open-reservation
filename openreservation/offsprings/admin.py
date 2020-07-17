@@ -8,8 +8,8 @@ from django.http import HttpResponse
 # Register your models here.
 class OffspringAdmin(admin.ModelAdmin):
     list_display = ('id', 'first_name', 'last_name', 'grade',
-                    'parent', 'assignment', 'baptized', 'father_name', 'mother_name', 'school', 'home_address')
-    list_display_links = ('id', 'first_name', 'last_name')
+                    'parent', 'assignment', 'baptized', 'birth_date', 'father_name', 'mother_name', 'school', 'home_address')
+    list_display_links = ('id', 'first_name', 'last_name',)
 
     actions = ["export_as_csv"]
 
